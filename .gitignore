@@ -1,0 +1,14 @@
+**/target/
+**/git.properties
+.classpath
+.project
+.settings/
+**/*.class
+
+*.iml
+.idea
+/target/
+
+src/main/resources/git.properties
+/bin/
+src/main/resources/config-properties.xml
