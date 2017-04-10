@@ -1,7 +1,6 @@
 package com.tin.firstapp.controller;
 
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,20 +36,17 @@ public class HomeController {
     }
 
     @RequestMapping( value = "/", method = RequestMethod.GET )
-    public ModelAndView index(HttpSession session, @AuthenticationPrincipal User user )
-    {
+    public ModelAndView index(@AuthenticationPrincipal User user ) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName( "welcome" );
         mv.addObject( "user", user.getUsername() );
         return mv;
     }
 
-    @RequestMapping( value = "/abc", method = RequestMethod.GET )
-    public String postMessage( HttpSession session, @RequestParam( "message" ) String message )
-    {
-        final List< String > messages = (List< String >)session.getAttribute(MESSAGES);
+    @RequestMapping( value = "/addMessage", method = RequestMethod.GET )
+    public String postMessage( HttpSession session, @RequestParam( "message" ) String message ) {
+        final List< String > messages = (List<String>)session.getAttribute(MESSAGES);
         messages.add( message );
-
         return "redirect:/";
     }
 }
