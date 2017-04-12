@@ -18,7 +18,7 @@ import org.springframework.session.hazelcast.config.annotation.web.http.EnableHa
  */
 @EnableHazelcastHttpSession
 @Configuration
-public class HttpSessionConfiguration {
+public class HazelcastHttpSessionConfiguration {
     public static final String NAMESPACE = "spring:session:sessions";
 
     @Value( "${hazelcast.publicAddress:localhost}" )
@@ -40,6 +40,7 @@ public class HttpSessionConfiguration {
         final Config config = new Config();
         config.getMapConfig( NAMESPACE ).addMapAttributeConfig( attributeConfig ).addMapIndexConfig(
                 new MapIndexConfig( HazelcastSessionRepository.PRINCIPAL_NAME_ATTRIBUTE, false ) );
+
         config.getNetworkConfig().setPublicAddress( publicAddress );
         config.getNetworkConfig().setPortAutoIncrement(false);
         config.getNetworkConfig().setPort( port );
