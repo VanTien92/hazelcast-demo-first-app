@@ -32,6 +32,21 @@
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
     </c:if>
+
+    <c:forEach var="message" items="${messages}">
+        <p>${message}</p>
+    </c:forEach>
+    <form method="POST" action="${contextPath}/addMessage" class="form-signin">
+        <div class="form-group">
+            <div class="col-md-push-2 col-md-6">
+                <input name="message" type="text" class="form-control" placeholder="Message"/>
+                <br/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button class="btn btn-primary btn-block" type="submit">Send</button>
+            </div>
+        </div>
+    </form>
+
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

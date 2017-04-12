@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,9 +44,14 @@ public class HomeController {
         return mv;
     }
 
-    @RequestMapping( value = "/addMessage", method = RequestMethod.GET )
+    @RequestMapping( value = "/addMessage", method = RequestMethod.POST )
     public String postMessage( HttpSession session, @RequestParam( "message" ) String message ) {
-        final List< String > messages = (List<String>)session.getAttribute(MESSAGES);
+        List< String > messages = (List<String>)session.getAttribute(MESSAGES);
+        if (messages == null) {
+            messages = new ArrayList<>();
+            session.setAttribute(MESSAGES, messages);
+            messages = (List<String>)session.getAttribute(MESSAGES);
+        }
         messages.add( message );
         return "redirect:/";
     }
