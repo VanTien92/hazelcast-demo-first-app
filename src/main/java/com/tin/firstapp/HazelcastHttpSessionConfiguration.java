@@ -45,6 +45,10 @@ public class HazelcastHttpSessionConfiguration {
         config.getNetworkConfig().setPort( port );
         config.getNetworkConfig().setPortCount( portCount );
 
+        final JoinConfig join = config.getNetworkConfig().getJoin();
+        join.getMulticastConfig().setEnabled( false );
+        join.getTcpIpConfig().addMember( publicAddress ).setRequiredMember( null ).setEnabled( true );
+
         return Hazelcast.newHazelcastInstance( config );
     }
 }
